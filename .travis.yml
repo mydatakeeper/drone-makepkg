@@ -1,0 +1,51 @@
+language: bash
+services: docker
+
+addons:
+  apt:
+    packages:
+    - qemu-user-static
+
+script:
+  - sed -e "s|%CARCH%|${CARCH}|g" -i 'Dockerfile'
+  - docker build -t mydatakeeper/drone-makepkg:${CARCH} .
+
+deploy:
+  provider: script
+  script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push mydatakeeper/drone-makepkg:${CARCH}
+  on:
+    branch: master
+
+matrix:
+  include:
+    - env: CARCH=arietta
+    - env: CARCH=kirkwood
+    - env: CARCH=armv5
+    - env: CARCH=mmp
+    - env: CARCH=rpi
+    - env: CARCH=am33x
+    # - env: CARCH=odroid-c1
+    - env: CARCH=mirabox
+    - env: CARCH=smileplug
+    # - env: CARCH=cubox
+    - env: CARCH=d3plug
+    - env: CARCH=odroid-x
+    - env: CARCH=odroid
+    - env: CARCH=odroid-xu
+    # - env: CARCH=odroid-xu3
+    - env: CARCH=usbarmory
+    # - env: CARCH=imx6-cubox
+    # - env: CARCH=utilite
+    - env: CARCH=armv7
+    - env: CARCH=armv7-chromebook
+    - env: CARCH=rpi-2
+    # - env: CARCH=veyron
+    # - env: CARCH=zedboard
+    - env: CARCH=aarch64
+    - env: CARCH=aarch64-chromebook
+    - env: CARCH=odroid-c2
+    - env: CARCH=odroid-n2
+    - env: CARCH=oak
+    - env: CARCH=dragonboard410c
+    - env: CARCH=rpi-3
+    - env: CARCH=gru
