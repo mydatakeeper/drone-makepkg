@@ -5,8 +5,8 @@ RUN set -xe \
     && pacman -Scc --noconfirm \
     && echo "alarm ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-ENV PLUGIN_KEYS ""
-ENV PLUGIN_REPOS ""
+ENV PLUGIN_KEYS ''
+ENV PLUGIN_REPOS ''
 CMD set -xe \
     && for key in $(echo $PLUGIN_KEYS | tr ',' ' '); do \
         pacman-key --recv-keys "$key" \
