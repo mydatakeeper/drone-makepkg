@@ -15,8 +15,8 @@ CMD set -xe \
     && for repo in $(echo $PLUGIN_REPOS | tr ',' ' '); do \
         echo -e "$repo" >> '/etc/pacman.conf'; \
     done \
-    && pacman -Syu --noconfirm \
-    && pacman-db-upgrade \
-    && pacman -Scc --noconfirm \
+    && source PKGBUILD \
+    && pacman -Syu --noconfirm ${makedepends[@]} ${checkdepends[@]} ${depends[@]} --needed \
+    && pacman-key --recv-keys ${validpgpkeys[@]} \
     && chown alarm -R . \
-    && sudo -u alarm makepkg --noconfirm -s
+    && sudo -u alarm makepkg --noconfirm
