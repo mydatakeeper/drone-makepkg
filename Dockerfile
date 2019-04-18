@@ -14,7 +14,7 @@ CMD set -xe \
     && for repo in $(echo $PLUGIN_REPOS | tr ',' ' '); do \
         echo -e "$repo" >> '/etc/pacman.conf'; \
     done \
-    && source PKGBUILD \
+    && source ./PKGBUILD \
     && pacman -Syu --noconfirm --needed \
         ${makedepends[@]} $(eval "echo \${makedepends_$(uname -m)[@]}") \
         ${checkdepends[@]}  $(eval "echo \${checkdepends_$(uname -m)[@]}") \
