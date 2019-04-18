@@ -2,8 +2,7 @@ FROM mydatakeeper/archlinuxarm:%CARCH%
 
 RUN set -xe \
     && pacman -Syu --noconfirm --needed sudo base-devel git \
-    && pacman -Scc --noconfirm \
-    && echo "alarm ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+    && pacman -Scc --noconfirm
 
 ENV PLUGIN_KEYS ''
 ENV PLUGIN_REPOS ''
@@ -16,7 +15,12 @@ CMD set -xe \
         echo -e "$repo" >> '/etc/pacman.conf'; \
     done \
     && source PKGBUILD \
-    && pacman -Syu --noconfirm ${makedepends[@]} ${checkdepends[@]} ${depends[@]} --needed \
-    && pacman-key --recv-keys ${validpgpkeys[@]} \
+    && pacman -Syu --noconfirm --needed \
+        ${makedepends[@]} $(eval "echo \${makedepends_$(uname -m)[@]}") \
+        ${checkdepends[@]}  $(eval "echo \${checkdepends_$(uname -m)[@]}") \
+        ${depends[@]}  $(eval "echo \${depends_$(uname -m)[@]}") \
+    && if [ -n "$validpgpkeys" ]; then \
+        pacman-key --recv-keys ${validpgpkeys[@]}; \
+    fi \
     && chown alarm -R . \
-    && sudo -u alarm makepkg --noconfirm
+    && sudo -u alarm makepkg --noconfirm --nosign
