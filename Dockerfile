@@ -7,8 +7,8 @@ RUN set -xe \
 ENV PLUGIN_KEYS ''
 ENV PLUGIN_REPOS ''
 CMD set -xe \
-    && git config user.email ${DRONE_COMMIT_AUTHOR_EMAIL} \
-    && git config user.name ${DRONE_COMMIT_AUTHOR_NAME} \
+    && git config --global user.email ${DRONE_COMMIT_AUTHOR_EMAIL} \
+    && git config --global user.name ${DRONE_COMMIT_AUTHOR_NAME} \
     && for key in $(echo $PLUGIN_KEYS | tr ',' ' '); do \
         pacman-key --recv-keys "$key" \
         && pacman-key --lsign-key "$key"; \
