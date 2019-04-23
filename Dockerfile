@@ -7,8 +7,6 @@ RUN set -xe \
 ENV PLUGIN_KEYS ''
 ENV PLUGIN_REPOS ''
 CMD set -xe \
-    && git config --global user.email ${DRONE_COMMIT_AUTHOR_EMAIL} \
-    && git config --global user.name ${DRONE_COMMIT_AUTHOR_NAME} \
     && for key in $(echo $PLUGIN_KEYS | tr ',' ' '); do \
         pacman-key --recv-keys "$key" \
         && pacman-key --lsign-key "$key"; \
@@ -25,4 +23,6 @@ CMD set -xe \
         pacman-key --recv-keys ${validpgpkeys[@]}; \
     fi \
     && chown alarm -R . \
+    && sudo -u alarm git config --global user.email ${DRONE_COMMIT_AUTHOR_EMAIL} \
+    && sudo -u alarm git config --global user.name ${DRONE_COMMIT_AUTHOR_NAME} \
     && sudo -u alarm makepkg --noconfirm --nosign
