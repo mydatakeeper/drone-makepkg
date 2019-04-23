@@ -1,4 +1,4 @@
-FROM mydatakeeper/archlinuxarm:%CARCH%
+FROM %FROM%
 
 RUN set -xe \
     && pacman -Syu --noconfirm --needed sudo base-devel git \

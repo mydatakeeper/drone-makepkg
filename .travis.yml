@@ -5,6 +5,7 @@ addons:
     packages:
     - qemu-user-static
 script:
+- FROM=${FROM:-mydatakeeper/archlinuxarm:${CARCH}}
 - sed -e "s|%FROM%|${FROM}|g" -i 'Dockerfile'
 - docker build -t mydatakeeper/drone-makepkg:${CARCH} .
 deploy:
@@ -13,37 +14,33 @@ deploy:
     && docker push mydatakeeper/drone-makepkg:${CARCH}
   on:
     branch: master
-matrix:
-  include:
-  - env: CARCH=arietta
-  - env: CARCH=kirkwood
-  - env: CARCH=armv5
-  - env: CARCH=mmp
-  - env: CARCH=rpi
-  - env: CARCH=am33x
-  - env: CARCH=mirabox
-  - env: CARCH=smileplug
-  - env: CARCH=d3plug
-  - env: CARCH=odroid-x
-  - env: CARCH=odroid
-  - env: CARCH=odroid-xu
-  - env: CARCH=usbarmory
-  - env: CARCH=armv7
-  - env: CARCH=armv7-chromebook
-  - env: CARCH=rpi-2
-  - env: CARCH=aarch64
-  - env: CARCH=aarch64-chromebook
-  - env: CARCH=odroid-c2
-  - env: CARCH=odroid-n2
-  - env: CARCH=oak
-  - env: CARCH=dragonboard410c
-  - env: CARCH=rpi-3
-  - env: CARCH=gru
-  - env:
-    - CARCH=x86_64
-    - FROM=archlinux/base:latest
 env:
+  matrix:
+  - CARCH=arietta
+  - CARCH=kirkwood
+  - CARCH=armv5
+  - CARCH=mmp
+  - CARCH=rpi
+  - CARCH=am33x
+  - CARCH=mirabox
+  - CARCH=smileplug
+  - CARCH=d3plug
+  - CARCH=odroid-x
+  - CARCH=odroid
+  - CARCH=odroid-xu
+  - CARCH=usbarmory
+  - CARCH=armv7
+  - CARCH=armv7-chromebook
+  - CARCH=rpi-2
+  - CARCH=aarch64
+  - CARCH=aarch64-chromebook
+  - CARCH=odroid-c2
+  - CARCH=odroid-n2
+  - CARCH=oak
+  - CARCH=dragonboard410c
+  - CARCH=rpi-3
+  - CARCH=gru
+  - CARCH=x86_64 FROM=archlinux/base:latest
   global:
-  - FROM: mydatakeeper/archlinuxarm:${CARCH}
   - secure: lwXBMA2IS7ra+R7NiQUPk9zxlbS203bjUwno8psUhurOwT/yZy7n1BVHJVgcUlUcWBA40hSeN4Kvryyqh/0OTj7/1Da8QUUZSpOxm8fexEwdr6WPJRevHTjpf1xlmp9yal0IL3HSJlYwSWJ9IcOsuyVyWwxIiBbeYTUxTNNZdo5UsjYweiJuZeuB2LCkva5l+BExnmzYjBWeUTQqlRe56WqYN7Z1sqx2tLjjn+q7GP2ksc2i21ciZG6N+xsY6XLg/rLo/iR8iVamM/X4uuthdnrMV1IDEXqg4THY+gUzEG1bf3VHxCu1o3r8kKLjIyxHmokG7CHCjbuN8kyWVzOqH3/FIXRUdJpyHa+KHIR0nqCMf9jjGooE4IaT+nDk3VHkN3Z6jL1U1S55yikAKTVW+pesWWgnLqBo31pirCQ9i8C4fJybnT05ca91R7M2laVRMzT1HO6C63CVgImuaH0vmpFXkPEA/wocAejuLnm618VIBGX47Uhm4pgvJFEpBddL2aq5rTt5Mk2M1XK2+rBSZrJn25PdBAbkHFGnOfeCSZ4075gn/w2rb/aKKqZj/vwHpVWHEk5IqQihnfvTF77OzJ82ZP513roiS8wTt1PSkklHlxaRzGG91S9AUKcwYlyP1n4osMUKffrsKAKmLx3BATCSGK8aZXpQjQ54qkeCflU=
   - secure: UtiC872f8OTOCc3igfazIo9BDb4UWfpxG0js8wtGha7G6yDWuHlP6L+e8f//65iSgh2KtM2DjQnXumwt66+4SPuG4BUW768JNBF7vAopK5AxxCw2tP+7/bI+ZVRz87IZYorfBvL5xWVmH1i6a+e031RQXXHp6BE9ENjWzrnklnejjaCujBc99Q6Bq1fTz8OQV7uOx/Bbwb9M6gUVCtv8KjGK6UDv/19PAmFB4qFnb6Z3k4PV3TDPvzebrPqDq6Z2E2FcGkjlP+P6xWwfd12yz2Bbia8spUvKwIMbdyz35HSwrcQRFpSUWhXwwX6Vux9AUltp5uwhDsxhqxl+yjbzG9mLWsvKdDtgZL2XappCkjzv9KIza4CDEiNdPZe7j4mvYIVXeMeW1JDNq/nUI3PVItWCYeExB1N3eiWpzmHmiA7FKmSoJ3a4dZmOWvpx3rX0Dm8dHIYn0t8huBkQNwAwAk8sYMMHavflQXpPbMSyXllMcL+NS4Oh+wSl+XdjIMQZ8sHMKIzqBX+gv+PXOBD2eExvsG3dvCarG+53Eqv2fyezXrSQ/qaCtfQoeuXl2XQ8ZqihU5E5uTS+XA+AWr4UK0UuvNvJ6iZBgfcIqzyaxjF52RgeR0BkmfqA81A4B7g/lAG5TsSWyNcKoGCYr1fM4S72MQMmoyPhfHNYvVE6Y14=
