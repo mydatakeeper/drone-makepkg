@@ -1,7 +1,7 @@
 FROM %FROM%
 
 RUN set -xe \
-    && pacman -Syu --noconfirm --needed sudo base-devel git \
+    && pacman -Syu --noconfirm --needed sudo base-devel git openssh \
     && pacman -Scc --noconfirm
 
 CMD trap 'rm -rf ~/.ssh' HUP INT QUIT ABRT KILL ALRM TERM \
