@@ -35,5 +35,5 @@ CMD set -xe \
         fi \
         && git config --global user.email "$DRONE_COMMIT_AUTHOR_EMAIL" \
         && git config --global user.name "$DRONE_COMMIT_AUTHOR_NAME" \
-        && aarch64-makepkg --noconfirm --nosign --nodeps \
+        && makepkg --noconfirm --nosign --nodeps \
     '
