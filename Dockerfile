@@ -17,7 +17,7 @@ CMD set -xe \
     done \
     && pacman -Syu --noconfirm --needed \
         ${makedepends[@]} $(eval "echo \${makedepends_$(pacman-conf Architecture)[@]}") \
-        ${checkdepends[@]}  $(eval "echo \${checkdepends_$(pacman-conf Architecture[@]}") \
+        ${checkdepends[@]}  $(eval "echo \${checkdepends_$(pacman-conf Architecture)[@]}") \
         ${depends[@]}  $(eval "echo \${depends_$(pacman-conf Architecture)[@]}") \
     && if [ -n "$validpgpkeys" ]; then \
         pacman-key --recv-keys ${validpgpkeys[@]}; \
