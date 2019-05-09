@@ -1,6 +1,7 @@
 FROM %FROM%
 
 RUN set -xe \
+    && sed -e 's|#MAKEFLAGS=.*|MAKEFLAGS="-j$((`nproc` * 2))"|g' -i /etc/makepkg.conf \
     && pacman -Syu --noconfirm --needed sudo base-devel git openssh gnupg \
     && pacman -Scc --noconfirm
 
