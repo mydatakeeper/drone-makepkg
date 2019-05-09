@@ -1,7 +1,7 @@
 FROM %FROM%
 
 RUN set -xe \
-    && pacman -Syu --noconfirm --needed sudo base-devel git openssh \
+    && pacman -Syu --noconfirm --needed sudo base-devel git openssh gnupg \
     && pacman -Scc --noconfirm
 
 SHELL ["/bin/bash", "-c"]
@@ -20,7 +20,7 @@ CMD set -xe \
         ${checkdepends[@]}  $(eval "echo \${checkdepends_$(pacman-conf Architecture)[@]}") \
         ${depends[@]}  $(eval "echo \${depends_$(pacman-conf Architecture)[@]}") \
     && if [ -n "$validpgpkeys" ]; then \
-        pacman-key --recv-keys ${validpgpkeys[@]}; \
+        gpg --recv-keys ${validpgpkeys[@]}; \
     fi \
     && chown alarm -R . \
     && export PLUGIN_KNOWN_HOST PLUGIN_DEPLOYMENT_KEY DRONE_COMMIT_AUTHOR_EMAIL DRONE_COMMIT_AUTHOR_NAME \
