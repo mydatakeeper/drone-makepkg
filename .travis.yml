@@ -16,30 +16,10 @@ deploy:
     branch: master
 env:
   matrix:
-  - CARCH=arietta
-  - CARCH=kirkwood
-  - CARCH=armv5
-  - CARCH=mmp
-  - CARCH=rpi
-  - CARCH=am33x
-  - CARCH=mirabox
-  - CARCH=smileplug
-  - CARCH=d3plug
-  - CARCH=odroid-x
-  - CARCH=odroid
-  - CARCH=odroid-xu
-  - CARCH=usbarmory
-  - CARCH=armv7
-  - CARCH=armv7-chromebook
-  - CARCH=rpi-2
+  - CARCH=arm
+  - CARCH=armv6h
+  - CARCH=armv7h
   - CARCH=aarch64
-  - CARCH=aarch64-chromebook
-  - CARCH=odroid-c2
-  - CARCH=odroid-n2
-  - CARCH=oak
-  - CARCH=dragonboard410c
-  - CARCH=rpi-3
-  - CARCH=gru
   - CARCH=x86_64 FROM=mydatakeeper/archlinux
   global:
   - secure: lwXBMA2IS7ra+R7NiQUPk9zxlbS203bjUwno8psUhurOwT/yZy7n1BVHJVgcUlUcWBA40hSeN4Kvryyqh/0OTj7/1Da8QUUZSpOxm8fexEwdr6WPJRevHTjpf1xlmp9yal0IL3HSJlYwSWJ9IcOsuyVyWwxIiBbeYTUxTNNZdo5UsjYweiJuZeuB2LCkva5l+BExnmzYjBWeUTQqlRe56WqYN7Z1sqx2tLjjn+q7GP2ksc2i21ciZG6N+xsY6XLg/rLo/iR8iVamM/X4uuthdnrMV1IDEXqg4THY+gUzEG1bf3VHxCu1o3r8kKLjIyxHmokG7CHCjbuN8kyWVzOqH3/FIXRUdJpyHa+KHIR0nqCMf9jjGooE4IaT+nDk3VHkN3Z6jL1U1S55yikAKTVW+pesWWgnLqBo31pirCQ9i8C4fJybnT05ca91R7M2laVRMzT1HO6C63CVgImuaH0vmpFXkPEA/wocAejuLnm618VIBGX47Uhm4pgvJFEpBddL2aq5rTt5Mk2M1XK2+rBSZrJn25PdBAbkHFGnOfeCSZ4075gn/w2rb/aKKqZj/vwHpVWHEk5IqQihnfvTF77OzJ82ZP513roiS8wTt1PSkklHlxaRzGG91S9AUKcwYlyP1n4osMUKffrsKAKmLx3BATCSGK8aZXpQjQ54qkeCflU=
