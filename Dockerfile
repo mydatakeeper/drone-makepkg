@@ -12,10 +12,15 @@ CMD set -xe \
         pacman-key --recv-keys "$key" \
         && pacman-key --lsign-key "$key"; \
     done \
-    && echo >> '/etc/pacman.conf' \
-    && for repo in $(echo $PLUGIN_REPOS | tr ',' ' '); do \
-        echo -e "$repo" >> '/etc/pacman.conf'; \
-    done \
+    && (\
+        head -n 70 /etc/pacman.conf \
+        && echo \
+        && for repo in $(echo $PLUGIN_REPOS | tr ',' ' '); do \
+            echo -e "$repo"; \
+        done \
+        && tail -n +71 /etc/pacman.conf \
+    ) > /etc/pacman.conf.new \
+    && mv /etc/pacman.conf.new /etc/pacman.conf\
     && pacman -Syu --noconfirm --needed \
         ${makedepends[@]} $(eval "echo \${makedepends_$(pacman-conf Architecture)[@]}") \
         ${checkdepends[@]}  $(eval "echo \${checkdepends_$(pacman-conf Architecture)[@]}") \
