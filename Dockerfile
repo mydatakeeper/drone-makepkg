@@ -2,6 +2,7 @@ FROM %FROM%
 
 RUN set -xe \
     && sed -e 's|#MAKEFLAGS=.*|MAKEFLAGS="-j$((`nproc` * 2))"|g' -i /etc/makepkg.conf \
+    && rm -f /usr/share/libalpm/hooks/package-cleanup.hook \
     && pacman -Syu --noconfirm --needed sudo base-devel git openssh gnupg \
     && pacman -Scc --noconfirm
 
